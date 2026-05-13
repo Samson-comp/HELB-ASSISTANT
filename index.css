@@ -1,0 +1,75 @@
+head{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: blue;
+    background: linear-gradient(on the right rgb(176, 176, 224),rgb(142, 142, 247));
+}
+body{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    color: rgb(38, 38, 37);
+    background: linear-gradient(on the right rgb(176, 176, 224),rgb(142, 142, 247));
+    min-height: 100vh;
+}
+h2{
+    color: blue;
+    justify-content: center;
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+    
+
+}   
+
+input{
+    width: 145%;
+    padding: 12px;
+    background: #eee;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    Color:  #333;
+    margin-bottom: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.form-box{
+    width: 100%;
+    max-width: 300px;
+    padding: 30px;
+    background: #f8f8fc;
+    border-radius: 10px;
+    box-shadow:0 0 10px rgba(0,0,0 0.1);
+}
+
+.form-box.active{
+    display: block;
+}
+
+button{
+    background: rgb(78, 161, 206);
+    padding: 10px;
+    border-radius: 5px;
+    border-color: #3b28b4;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+
+}
+
+div{
+    background-color: #72cce1;
+    display: flex;
+    border-radius:30px;
+    max-width: 150%;
+    width: 150%;
+}
+footer{
+    align-items: end;
+    color: #eee;
+    background-color:black;
+    position-area: inherit;
+    justify-content: center;
+ }
