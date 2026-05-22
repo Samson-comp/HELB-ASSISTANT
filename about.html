@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Us - HELb Assistance</title>
+</head>
+<body>
+
+<!-- Side Navigation Menu -->
+<div class="side-nav">
+  <a href="Home.html">Home</a>
+  <a href="Home.html">Log Out</a>
+  <a href="Registration part.html">Register</a>
+  <a href="account1.html">Account</a>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <h1>About</h1>
+  <p>
+    HELb Assistance is dedicated to helping our fellow comrades achieve their financial goals.
+    We emphasize the importance of saving money to secure your future, handle emergencies,
+    and achieve your dreams. Saving is especially crucial for comrades because it ensures
+    financial stability and peace of mind amidst life's uncertainties.
+  </p>
+
+  <h2>Why Saving is Necessary</h2>
+  <p>
+    Saving helps you build a safety net for unexpected expenses, invest in opportunities,
+    and plan for the future. As comrades, supporting each other financially is vital,
+    and saving is the first step towards collective growth and stability.
+    Your feedback is necessary to ensure the system suits you as the user" required
+  </p>
+
+  <!-- Comment and Rating Form -->
+  <section id="comments">
+    <h2>Share Your Feedback</h2>
+    <form id="comment-form" onsubmit="submitComment(event)">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" placeholder="Your Name" required /><br /><br />
+
+      <label for="comment">Comment:</label><br />
+      <textarea id="comment" rows="4" cols="50" placeholder="Your feedback is necessary!" required></textarea><br /><br />
+
+      <label for="rating">Rate Us:</label><br />
+      <select id="rating" required>
+        <option value="">Select Rating</option>
+        <option value="5">5 - Excellent</option>
+        <option value="4">4 - Good</option>
+        <option value="3">3 - Average</option>
+        <option value="2">2 - Poor</option>
+        <option value="1">1 - Very Poor</option>
+      </select><br /><br />
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <!-- Display comments -->
+    <div id="feedback-list"></div>
+  </section>
+</div>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  color: white;
+}
+label{
+  color: rgb(6, 181, 240);
+  font-weight: bold;
+  font-size: larger;
+}
+
+/* Side navigation styles */
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.side-nav a {
+  color: #f5f3f3;
+  padding: 15px;
+  text-decoration: none;
+  margin: 10px;
+  background-color: rgba(255, 165, 0, 0.7);
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.side-nav a:hover {
+  background-color: rgba(255, 165, 0, 1);
+}
+body{
+ background-image: url('helb logo.png');
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 220px;
+  padding: 30px;
+  max-width: 800px;
+}
+
+h1, h2 {
+  color: #f9ac06;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+/* Feedback form styles */
+#comment-form {
+  margin-top: 20px;
+}
+
+#comment-form input, #comment-form textarea, #comment-form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid #dddd2d;
+}
+
+#comment-form button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #2704eb;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#comment-form button:hover {
+  background-color: #0056b3;
+}
+#feedback-list{
+  color: black;
+  background-color: rgb(47, 223, 144);
+  border-radius: 0px;
+  border-color: rgb(47, 220, 144);
+}
+</style>
+<script>
+  // Function to handle comment submission
+  function submitComment(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+
+    const name = document.getElementById('name').value;
+    const comment = document.getElementById('comment').value;
+    const rating = document.getElementById('rating').value;
+
+    // Create a new comment element
+    const feedbackDiv = document.getElementById('feedback-list');
+    const newComment = document.createElement('div');
+    newComment.style.border = '1px solid #fff';
+    newComment.style.padding = '10px';
+    newComment.style.marginTop = '10px';
+    newComment.innerHTML = `
+      <strong>${name}</strong> (Rating: ${rating}/5)<br />
+      <p>${comment}</p>
+    `;
+
+    feedbackDiv.appendChild(newComment);
+
+    // Reset the form
+    document.getElementById('comment-form').reset();
+  }
+</script>
+
+</body>
+</html>
