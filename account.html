@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="log.css">
+</head>
+<body>
+  <!-- Login Form -->
+  <div class="login-section">
+    <h2>Login</h2>
+    <form class="login-form">
+                <h2>Login to Helb Assistant</h2>
+                <input type="name" name="Username" placeholder="Stephany Kai" required>
+                <input type="text" name="Admission Number" placeholder="CSC/1200/32" required>             
+                <input type="email" name="Email" placeholder="Email" required>
+                <input type="password" name="Password" placeholder="Password" required>
+                <button type="submit" name="Login">Login</button>
+                <i><p>Don't have an account? <a href="Registration part.html" onclick="showForm('registration-form')">Register</a>
+                <br> To go back home click  <a href="Home.html">Home</a></p></i>
+      
+      <button type="button" onclick="showProfile()">Login</button>
+    </form>
+  </div>
+<!-- Main Content with Background Image -->
+<div class="main-content">
+  
+  <header>
+    <h1>HELB ASSISTANT</h1>
+    <p>Plan. Save. Prosper. For Kenyan Comrades.</p>
+  </header>
+
+  <!-- Profile Section -->
+  <section id="profile" class="section">
+    <h2>Profile</h2>
+    <p>Update your profile informations here.</p>
+    <label for="name">First Name:</label>
+  <!-- Profile Section (hidden initially) -->
+  <div class="profile-section" style="display:none;">
+    <h2>Welcome, User!</h2>
+    
+    <!-- Profile Update -->
+    <div class="profile-update">
+      <h3>Update Profile</h3>
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Your Name" />
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Your Email" />
+      
+      <button onclick="updateProfile()">Update Profile</button>
+    </div>
+
+    <!-- Account Balance -->
+    <div class="account-balance">
+      <h3>Your Balance: $<span id="balance">1000</span></h3>
+    </div>
+
+    <!-- To-Do List -->
+    <div class="todo-section">
+      <h3>Your To-Do List</h3>
+      <input type="text" id="todo-input" placeholder="New task" />
+      <button onclick="addTodo()">Add</button>
+      <ul id="todo-list">
+        <!-- Tasks will appear here -->
+      </ul>
+    </div>
+  </div>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Style the login section */
+.login-section {
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Style the form elements */
+.login-form label {
+  display: block;
+  margin-top: 10px;
+}
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+.login-form button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Style the profile section */
+.profile-section {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+  color: #333;
+}
+
+.profile-update label {
+  display: block;
+  margin-top: 10px;
+}
+.profile-update input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* To-Do List styles */
+.todo-section {
+  margin-top: 20px;
+}
+#todo-input {
+  width: calc(100% - 100px);
+  padding: 8px;
+}
+#todo-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+#todo-list li {
+  margin-bottom: 8px;
+}
+  </style>
+
+  <script>
+    // JavaScript to handle interactions
+    function showProfile() {
+      document.querySelector('.login-section').style.display = 'none';
+      document.querySelector('.profile-section').style.display = 'block';
+    }
+
+    function updateProfile() {
+      alert('Profile updated!');
+    }
+
+    function addTodo() {
+      const task = document.getElementById('todo-input').value;
+      if(task) {
+        const li = document.createElement('li');
+        li.textContent = task;
+        document.getElementById('todo-list').appendChild(li);
+        document.getElementById('todo-input').value = '';
+      }
+    }
+  </script>
+</body>
+</html>

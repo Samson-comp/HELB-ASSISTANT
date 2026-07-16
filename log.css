@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=poppins:wght@400;500;700&display=swap');
 
-.{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -12,7 +12,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right,#cfeef6,#acbcee);
+    background-image: url(helb\ image.png);
     color: #333;
     font-size: large;
 }
@@ -29,7 +29,7 @@ h2 {
 
 input {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     background: #eee;
     border-radius: 6px;
     border: none;
@@ -53,18 +53,21 @@ form-box.active{
     display: block;
 }
 button{
-    background: rgb(78, 161, 206);
+    background: rgb(4, 223, 51);
     padding: 20px;
     border-radius: 5px;
     border-color: #04a8fa;
     font-size: medium;
     justify-content: center;
     align-items: center;
-
+}
+link{
+    color: rgb(255, 0, 225);
+    background-color: #04a8fa;
 }
 
 div {
-    background-color: #72cce1;
+    background-color: #fcc80d;
     display: flex;
     border-radius: 20px;
     max-width: 97%;

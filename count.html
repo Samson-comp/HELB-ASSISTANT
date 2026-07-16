@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Finance Portal</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #22c55e;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); margin: 0; }
+        
+        /* Auth Screen */
+        #auth-container, #dashboard { display: none; height: 100vh; justify-content: center; align-items: center; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        
+        /* Dashboard Layout */
+        #dashboard { flex-direction: column; padding: 20px; box-sizing: border-box; }
+        .balance-card { background: var(--dark); color: white; padding: 2rem; border-radius: 15px; text-align: center; width: 100%; max-width: 600px; margin-bottom: 20px; }
+        .balance-amount { font-size: 3rem; font-weight: bold; margin: 10px 0; color: var(--success); }
+
+        /* Form Elements */
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { opacity: 0.9; }
+        
+        /* Payment Options Grid */
+        .methods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .method-btn { border: 1px solid #ddd; background: white; color: var(--dark); padding: 10px; font-size: 0.8rem; }
+        .method-btn.active { border-color: var(--primary); background: #eff6ff; }
+
+        .hidden { display: none !important; }
+        .show { display: flex !important; }
+    </style>
+</head>
+<body>
+
+    <div id="auth-container" class="show">
+        <div class="card">
+            <h2>Welcome Back</h2>
+            <p>Please login to manage your funds</p>
+            <input type="email" id="email" placeholder="Email (any email works)">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="handleLogin()">Login to Account</button>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <div class="balance-card">
+            <p>Current Balance</p>
+            <div class="balance-amount">$<span id="balance-val">0.00</span></div>
+            <button style="background: var(--success);" onclick="toggleDeposit()">+ Deposit Funds</button>
+            <button style="margin-top: 10px; background: #64748b;" onclick="handleLogout()">Logout</button>
+        </div>
+
+        <div id="deposit-box" class="card hidden">
+            <h3>Deposit Money</h3>
+            <div class="methods">
+                <button class="method-btn active" onclick="setMethod('M-Pesa')">M-Pesa</button>
+                <button class="method-btn" onclick="setMethod('PayPal')">PayPal</button>
+                <button class="method-btn" onclick="setMethod('Card')">Credit Card</button>
+                <button class="method-btn" onclick="setMethod('Bank')">Bank Transfer</button>
+            </div>
+            <p id="method-label">Method: <strong>M-Pesa</strong></p>
+            <input type="number" id="deposit-amount" placeholder="Enter Amount" min="1">
+            <button onclick="processDeposit()">Confirm Deposit</button>
+            <button style="background:none; color: gray;" onclick="toggleDeposit()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let currentBalance = 0;
+        let selectedMethod = 'M-Pesa';
+
+        // 1. Authentication Logic
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+
+            if(email && pass) {
+                document.getElementById('auth-container').classList.remove('show');
+                document.getElementById('dashboard').classList.add('show');
+                alert("Login Successful!");
+            } else {
+                alert("Please enter credentials");
+            }
+        }
+
+        function handleLogout() {
+            location.reload(); // Simple way to reset state and return to login
+        }
+
+        // 2. Deposit Logic
+        function toggleDeposit() {
+            const box = document.getElementById('deposit-box');
+            box.classList.toggle('hidden');
+        }
+
+        function setMethod(method) {
+            selectedMethod = method;
+            document.getElementById('method-label').innerHTML = `Method: <strong>${method}</strong>`;
+            
+            // Highlight active button
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText === method) btn.classList.add('active');
+            });
+        }
+
+        function processDeposit() {
+            const amountInput = document.getElementById('deposit-amount');
+            const amount = parseFloat(amountInput.value);
+
+            if (isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid amount");
+                return;
+            }
+
+            // In a real app, you would send this to your backend API
+            // fetch('/api/deposit', { method: 'POST', body: ... })
+            
+            console.log(`Processing ${amount} via ${selectedMethod}...`);
+            
+            // Simulate API Success
+            currentBalance += amount;
+            updateUI();
+            
+            // Reset and close
+            amountInput.value = '';
+            toggleDeposit();
+            alert(`Successfully deposited $${amount} via ${selectedMethod}`);
+        }
+
+        function updateUI() {
+            document.getElementById('balance-val').innerText = currentBalance.toFixed(2);
+        }
+    </script>
+</body>
+</html>

@@ -1,19 +1,20 @@
 head{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: blue;
-    background: linear-gradient(on the right rgb(176, 176, 224),rgb(142, 142, 247));
+    color: rgb(248, 180, 8);
+    background: linear-gradient(on the right rgb(28, 28, 29),rgb(87, 87, 90));
 }
+
 body{
     display: flex;
     align-items: center;
     align-content: center;
     justify-content: center;
-    color: rgb(38, 38, 37);
-    background: linear-gradient(on the right rgb(176, 176, 224),rgb(142, 142, 247));
+    color: white;
+    background-image: url('helb logo.png');
     min-height: 100vh;
 }
 h2{
-    color: blue;
+    color: rgb(234, 174, 9);
     justify-content: center;
     font-size: xx-large;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -25,12 +26,12 @@ h2{
 input{
     width: 145%;
     padding: 12px;
-    background: #eee;
+    background:image-set(src"full helb.png");
     border-radius: 6px;
     border: none;
     outline: none;
     font-size: 16px;
-    Color:  #333;
+    Color: black;
     margin-bottom: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -39,9 +40,20 @@ input{
     width: 100%;
     max-width: 300px;
     padding: 30px;
-    background: #f8f8fc;
+    background: #5a5d70;
     border-radius: 10px;
     box-shadow:0 0 10px rgba(0,0,0 0.1);
+}
+select{
+    width: 100%;
+    padding: 12px;
+    background: #eee;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .form-box.active{
@@ -49,27 +61,40 @@ input{
 }
 
 button{
-    background: rgb(78, 161, 206);
+    background: rgb(93, 246, 106);
     padding: 10px;
     border-radius: 5px;
-    border-color: #3b28b4;
     font-size: medium;
     justify-content: center;
     align-items: center;
+    margin-left: 6px;
+    cursor: pointer;
 
+}
+button:hover{
+    color: #fff;
+    background: #3b47b7;
+}
+button.button{
+    background: #cecc4f;
+}
+link{
+    color: rgb(225, 255, 0);
+    background-color: aqua;
 }
 
 div{
-    background-color: #72cce1;
+    background-color: #cecc4f;
     display: flex;
     border-radius:30px;
     max-width: 150%;
     width: 150%;
 }
+img{
+
+    align-items:end;
+    align-content:baseline;
+}
 footer{
-    align-items: end;
-    color: #eee;
-    background-color:black;
-    position-area: inherit;
-    justify-content: center;
+   display: flex;
  }

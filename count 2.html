@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KES Digital Wallet</title>
+    <link rel="icon" href="icon.png">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --mpesa: #49b04a;
+            --paypal: #003087;
+            --dark: #1e293b;
+            --bg: #f1f5f9;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        /* Containers */
+        .container { background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        .hidden { display: none !important; }
+        
+        /* Typography */
+        h2 { margin-top: 0; color: var(--dark); text-align: center; }
+        .balance-display { background: var(--dark); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+        .balance-display h1 { color: var(--mpesa); margin: 5px 0; font-size: 2.5rem; }
+
+        /* Form Styling */
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+        
+        /* Buttons */
+        button { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-deposit { background: var(--mpesa); color: white; margin-top: 10px; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Payment Method Badges */
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .method-item { border: 2px solid #eee; padding: 10px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+        .method-item.active { border-color: var(--primary); background: #eff6ff; }
+
+        /* Overlay for "PIN Request" Simulation */
+        #pin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 100; color: white; text-align: center; }
+        .pin-box { background: #fff; color: #333; padding: 2rem; border-radius: 12px; width: 300px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-section" class="container">
+        <h2>Account Login</h2>
+        <label>Email Address</label>
+        <input type="email" id="login-email" placeholder="e.g., james@example.com">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••">
+        <button class="btn-primary" onclick="attemptLogin()">Access Account</button>
+        <br>
+        <p>To go back Home click! <a  href="Home.html">Back HOME</a></p> 
+    </div>
+
+    <div id="dashboard-section" class="container hidden">
+        <div class="balance-display">
+            <p>Available Balance</p>
+            <h1>KES <span id="balance-amt">0.00</span></h1>
+        </div>
+
+        <h3>Deposit Funds</h3>
+        <div class="method-grid">
+            <div class="method-item active" onclick="selectMethod('M-Pesa', this)">M-Pesa</div>
+            <div class="method-item" onclick="selectMethod('PayPal', this)">PayPal</div>
+            <div class="method-item" onclick="selectMethod('Bank', this)">Bank Account</div>
+            <div class="method-item" onclick="selectMethod('Card', this)">Credit Card</div>
+        </div>
+
+        <div id="dynamic-fields">
+            <label id="field-label">Phone Number</label>
+            <input type="text" id="method-identifier" placeholder="e.g., 0712345678">
+        </div>
+
+        <label>Amount (KES)</label>
+        <input type="number" id="deposit-amount" placeholder="Minimum 10">
+        
+        <button class="btn-deposit" onclick="initiateDeposit()">Initiate Deposit</button>
+        <button style="background:none; color:gray; margin-top:10px;" onclick="logout()">Logout</button>
+    </div>
+
+    <div id="pin-overlay">
+        <div class="pin-box">
+            <h3 id="overlay-title">M-Pesa STK Push</h3>
+            <p id="overlay-msg">Enter your PIN on your handset to authorize the transaction.</p>
+            <input type="password" id="dummy-pin" maxlength="4" placeholder="Enter 4-digit PIN" style="text-align: center; letter-spacing: 10px;">
+            <button class="btn-primary" onclick="completeTransaction()">Confirm Payment</button>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let balance = 0;
+        let currentMethod = "M-Pesa";
+
+        // Login Logic
+        function attemptLogin() {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+
+            if(email && pass.length >= 4) {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.remove('hidden');
+            } else {
+                alert("Please enter a valid email and password.");
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        // Method Selection Logic
+        function selectMethod(method, element) {
+            currentMethod = method;
+            
+            // UI Toggle
+            document.querySelectorAll('.method-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            // Dynamic Input Labeling
+            const label = document.getElementById('field-label');
+            const input = document.getElementById('method-identifier');
+
+            if(method === "M-Pesa") {
+                label.innerText = "Phone Number";
+                input.placeholder = "07XXXXXXXX";
+            } else if(method === "PayPal") {
+                label.innerText = "PayPal Email";
+                input.placeholder = "email@paypal.com";
+            } else if(method === "Bank") {
+                label.innerText = "Bank Account Number";
+                input.placeholder = "Acc: 1234567890";
+            } else {
+                label.innerText = "Card Number";
+                input.placeholder = "XXXX XXXX XXXX XXXX";
+            }
+        }
+
+        // Deposit Process
+        function initiateDeposit() {
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            const iden = document.getElementById('method-identifier').value;
+
+            if(!amount || amount <= 0 || !iden) {
+                alert("Please fill in all details correctly.");
+                return;
+            }
+
+            // Show PIN Overlay based on method
+            const overlay = document.getElementById('pin-overlay');
+            const title = document.getElementById('overlay-title');
+            const msg = document.getElementById('overlay-msg');
+
+            title.innerText = `${currentMethod} Authorization`;
+            msg.innerText = `A request has been sent to your ${currentMethod} account (${iden}). Please enter your secret PIN to authorize KES ${amount.toLocaleString()}.`;
+            
+            overlay.style.display = "flex";
+        }
+
+        function completeTransaction() {
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            const pin = document.getElementById('dummy-pin').value;
+
+            if(pin.length < 4) {
+                alert("Please enter your PIN");
+                return;
+            }
+
+            // Simulate Network Delay
+            document.getElementById('overlay-msg').innerText = "Processing... Please wait.";
+            
+            setTimeout(() => {
+                balance += amount;
+                updateDashboard();
+                
+                // Reset UI
+                document.getElementById('pin-overlay').style.display = "none";
+                document.getElementById('dummy-pin').value = "";
+                document.getElementById('deposit-amount').value = "";
+                alert("Transaction Successful! Your balance has been updated.");
+            }, 2000);
+        }
+
+        function updateDashboard() {
+            document.getElementById('balance-amt').innerText = balance.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+    </script>
+</body>
+</html>

@@ -5,20 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Helb Assistance Account</title>
 <link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="styles1.css" />
+<link rel="stylesheet" href="stylesq.css" />
+<link rel="#" href="scrript.js" />
 </head>
 <body>
-
 <!-- Side Navigation Menu -->
 <div class="side-nav">
   <a href="Home.html">Home</a>
   <a href="#profile">Profile</a>
   <a href="#planning">Planning / To-Do</a>
-  <a href="#amount">Account Balance</a>
+  <a href="count 2.html">Account </a>
 </div>
 
 <!-- Main Content with Background Image -->
 <div class="main-content">
-  
   <header>
     <h1>HELB ASSISTANT</h1>
     <p>Plan. Save. Prosper. For Kenyan Comrades.</p>
@@ -63,6 +65,16 @@ body {
   background-position: center;
   color: #141313;
 }
+* Style the login section */
+.login-section {
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
 
 /* Side Navigation Menu */
 .side-nav {
@@ -141,6 +153,10 @@ button:hover {
 </style>
 
 <script>
+    function showProfile() {
+      document.querySelector('.login-section').style.display = 'none';
+      document.querySelector('.profile-section').style.display = 'block';
+    }
   // Function to update profile info (dummy)
   function updateProfile() {
     alert('Profile updated!');
